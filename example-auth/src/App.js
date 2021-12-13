@@ -33,13 +33,14 @@ class App extends React.Component {
       // also set the loading prop to true to signal to the user we are processing his request.
       await this.setState({ error: false })
 
+      await appwrite.account.createOAuth2Session('github', "http://localhost:3002/path", "http://localhost:3002/path");
       // Create the session, if this fails it will error and be caught by the catch(err).
-      await appwrite.account.createSession(
-        email,
-        password
-      );
-      // If all is successful then get the userdata.
-      this.getUserdata();
+      // await appwrite.account.createSession(
+      //   email,
+      //   password
+      // );
+      // // If all is successful then get the userdata.
+      // this.getUserdata();
     } catch (err) {
       await this.setState({ error: 'Invalid Credentials' }) // If login fails then show user the login was not successful.
       console.error(err) // also console error for debugging purposes.
