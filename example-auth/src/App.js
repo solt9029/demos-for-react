@@ -19,6 +19,11 @@ class App extends React.Component {
     try {
       const response = await appwrite.account.get(); // Request to appwrite server to see if we are logged in.
       this.setState({ userprofile: response }); // If Logged in then set the returned profile to the userprofile variable in state.
+
+      // get provider token https://github.com/appwrite/appwrite/issues/1106
+      const token = await appwrite.account.getSessions();
+      console.log(token.sessions[0].providerToken);
+
     } catch (err) { // If we are not logged in or another error occoured then catch(err)
       if (err.toString() === 'Error: Unauthorized') return; // If not logged in then do nothing.
       this.setState({ error: err.toString() }); // If it's another error then set the error variable in state.
